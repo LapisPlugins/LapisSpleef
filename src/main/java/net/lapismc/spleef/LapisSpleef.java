@@ -29,5 +29,6 @@ public final class LapisSpleef extends LapisCorePlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+
     }
 }

@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LapisSpleef.iml" filepath="$PROJECT_DIR$/.idea/modules/LapisSpleef.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LapisSpleef.main.iml" filepath="$PROJECT_DIR$/.idea/modules/LapisSpleef.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LapisSpleef.test.iml" filepath="$PROJECT_DIR$/.idea/modules/LapisSpleef.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.lapismc.LapisSpleef.main.iml" filepath="$PROJECT_DIR$/.idea/modules/net.lapismc.LapisSpleef.main.iml" />
     </modules>
   </component>
 </project>

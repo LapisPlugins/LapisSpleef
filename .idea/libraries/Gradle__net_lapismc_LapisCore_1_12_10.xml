@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.lapismc:LapisCore:1.12.10" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.lapismc" artifactId="LapisCore" version="1.12.10" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.lapismc/LapisCore/1.12.10/dd0566e591fe9ddf1bebf70abc52b60344af4f15/LapisCore-1.12.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.lapismc/LapisCore/1.12.10/cfbcaea927e0e093afe3043c8aa9f8d116cc6510/LapisCore-1.12.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

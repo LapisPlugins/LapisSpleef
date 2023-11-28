@@ -20,7 +20,7 @@ plugins {
 group = 'net.lapismc'
 archivesBaseName = "LapisSpleef"
 version = '3.4.1'
-description = 'Classic Spleef for modern minecraft servers'
+description = 'Classic Spleef for modern Minecraft servers'
 sourceCompatibility = '17'
 targetCompatibility = '17'
 defaultTasks 'clean', 'build', 'shadowJar'
@@ -41,6 +41,7 @@ repositories {
 dependencies {
     implementation 'net.lapismc:LapisCore:1.12.10'
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.7.Final'
+    compileOnly 'net.lapismc:LapisChat:1.1.2'
     compileOnly "org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT"
 }
 

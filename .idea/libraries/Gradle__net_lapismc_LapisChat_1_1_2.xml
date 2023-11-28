@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.lapismc:LapisChat:1.1.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.lapismc" artifactId="LapisChat" version="1.1.2" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.lapismc/LapisChat/1.1.2/5c0e235865b24dd62fb1ec342fede9251dfc8ab5/LapisChat-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.lapismc/LapisChat/1.1.2/26305f4af48f4d45e576e5a598569bd9b93140e4/LapisChat-1.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

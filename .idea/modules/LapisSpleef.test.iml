@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="LapisSpleef:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.lapismc" external.system.module.type="sourceSet" external.system.module.version="3.4.1" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output-test url="file://$MODULE_DIR$/../../build/classes/java/test" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../src/test" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="net.lapismc.LapisSpleef.main" />
+    <orderEntry type="library" name="Gradle: net.lapismc:LapisCore:1.12.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.ocpsoft.prettytime:prettytime:5.0.7.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.tchristofferson:ConfigUpdater:2.1" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="LapisSpleef.main" />
+</module>
