@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'net.lapismc:LapisCore:1.12.10'
+    implementation 'net.lapismc:LapisCore:1.12.11'
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.7.Final'
     compileOnly 'net.lapismc:LapisChat:1.1.2'
     compileOnly "org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT"
@@ -56,6 +56,30 @@ shadowJar {
     exclude 'javax/**'
     relocate("org.ocpsoft.prettytime", "net.lapismc.spleef.util.prettytime")
     relocate("net.lapismc.lapiscore", "net.lapismc.spleef.util.core")
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+    include("net/lapismc/spleef/arena/*.java")
+}
+
+tasks.register('javadocJar', Jar) {
+    archiveClassifier.set('javadoc')
+    from javadoc
+}
+
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar, shadowJar
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 tasks.withType(JavaCompile).configureEach {

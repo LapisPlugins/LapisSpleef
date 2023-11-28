@@ -14,8 +14,9 @@
  *    limitations under the License.
  */
 
-package net.lapismc.spleef.players;
+package net.lapismc.spleef.arena;
 
+import net.lapismc.lapiscore.utils.LapisItemStackStorage;
 import net.lapismc.spleef.LapisSpleef;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,7 +26,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -90,7 +90,7 @@ public class SpleefPlayer {
     public void storeInventory() {
         inventoryContents = getPlayer().getInventory().getContents();
         //save inventory to file for emergency restore should the server crash
-        playerDataYaml.set("StoredInventory", inventoryContents);
+        new LapisItemStackStorage().saveItems(playerDataYaml, "StoredInventory", inventoryContents);
         savePlayerData();
     }
 
@@ -112,13 +112,8 @@ public class SpleefPlayer {
      * leaves mid-game
      */
     public void restoreInventoryFromFile() {
-        //Load the list of ItemStacks from the player data file
-        List<ItemStack> itemList = (List<ItemStack>) playerDataYaml.getList("StoredInventory");
-        //Don't proceed if it is null
-        if (itemList == null)
-            return;
         //Set the stored inventory contents to the loaded contents
-        inventoryContents = itemList.toArray(new ItemStack[0]);
+        inventoryContents = new LapisItemStackStorage().loadItems(playerDataYaml, "StoredInventory");
         //Use the restore inventory method to save the new inventory contents
         restoreInventory();
     }

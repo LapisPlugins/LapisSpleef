@@ -18,7 +18,6 @@ package net.lapismc.spleef.arena;
 
 import net.lapismc.lapiscore.utils.LapisItemBuilder;
 import net.lapismc.spleef.LapisSpleef;
-import net.lapismc.spleef.players.SpleefPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

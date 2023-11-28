@@ -7,7 +7,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="net.lapismc.LapisSpleef.main" />
-    <orderEntry type="library" name="Gradle: net.lapismc:LapisCore:1.12.10" level="project" />
+    <orderEntry type="library" name="Gradle: net.lapismc:LapisCore:1.12.11" level="project" />
     <orderEntry type="library" name="Gradle: org.ocpsoft.prettytime:prettytime:5.0.7.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.tchristofferson:ConfigUpdater:2.1" level="project" />
   </component>
