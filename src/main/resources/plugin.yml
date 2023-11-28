@@ -1,0 +1,4 @@
+name: LapisSpleef
+version: ${project.version}
+main: net.lapismc.spleef.LapisSpleef
+api-version: '1.20'
