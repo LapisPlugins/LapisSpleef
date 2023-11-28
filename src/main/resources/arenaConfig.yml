@@ -1,0 +1,22 @@
+#This is a sample of the arena config file used for reference purposes during development
+#The file name is the arena name and is stored in the "Arenas" folder
+# e.g. LapisSpleef/Arenas/Tower.yml
+#All locations are LapisCoreLocationUtil strings
+
+#The name value must be unique
+Name: Tower
+
+LobbySpawn: LocationX
+SpectatorSpawn: LocationY
+
+EliminationHeight: 30
+
+IsDisabled: false
+
+Floors:
+  0:
+    - BlockLocation0
+    - BlockLocation1
+  1:
+    - BlockLocation2
+    - BlockLocation3

@@ -1,0 +1,14 @@
+#This file is an example of the player data file for development purposes
+#The files name will be the players UUID, in the player data folder
+#e.g. LapisSpleef/PlayerData/cc227820-9060-4ebd-a00d-511e4815f125.yml
+Username: dart2112
+
+Stats:
+  GamesPlayed: 5
+  Wins: 2
+  Losses: 2
+  Abandoned: 1
+
+StoredInventory:
+  - ItemStackOne
+  - ItemStackTwo

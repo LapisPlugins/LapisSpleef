@@ -1,0 +1,8 @@
+ConfigVersion: 1
+
+Lobby:
+  Join: "&pYou've been added to the lobby for &s{ArenaName}&p, use &s/spleef ready&p when you are ready to start or hit the &siron block&p!"
+
+Spectate:
+  Eliminated: "&pYou have been eliminated, you are now spectating!"
+  GameInProgress: "&pYou have joined while a game is in progress, you are spectating and will join at the end of the current game"
