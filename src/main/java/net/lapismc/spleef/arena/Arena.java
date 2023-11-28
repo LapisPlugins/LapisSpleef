@@ -49,6 +49,12 @@ public class Arena {
     //Height of the bottom of the arena where players should be eliminated
     private int eliminationHeight;
 
+    /**
+     * Initialize an arena
+     *
+     * @param plugin The LapisSpleef main class
+     * @param name   The unique name of this arena
+     */
     public Arena(LapisSpleef plugin, String name) {
         this.plugin = plugin;
         this.name = name;
@@ -249,12 +255,20 @@ public class Arena {
         eliminationHeight = height;
     }
 
+    /**
+     * Load the arenas details from a config file
+     * This should mainly be used when loading an exising arena
+     */
     public void loadFromConfig() {
-
+        //TODO: load from config
     }
 
+    /**
+     * Save arena data to config file
+     * This should be used after edit the arenas details such that it can be loaded next time
+     */
     public void saveToConfig() {
-
+        //TODO: save to config
     }
 
 }

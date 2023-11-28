@@ -16,8 +16,26 @@
 
 package net.lapismc.spleef.arena;
 
+/**
+ * This enumeration is used to store the current state of the game for any arena
+ */
 public enum GameState {
 
-    disabled, waiting, playing, ended
+    /**
+     * Disabled arenas are not joinable, this is the state that a new and not yet configured arena will begin in
+     */
+    disabled,
+    /**
+     * Waiting arenas are joinable, but are waiting for a minimum number of players or players to ready up before starting
+     */
+    waiting,
+    /**
+     * Playing arenas are currently in game, and as such new players can only spectate until the next game
+     */
+    playing,
+    /**
+     * Arenas in the ended state are simply allowing the winner to bask in their glory before the waiting state begins again
+     */
+    ended
 
 }

@@ -24,6 +24,12 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to represent the floors of a spleef arena
+ * This class handles the tracking of blocks in the floor
+ * Regenerating those blocks
+ * And breaking those blocks with effects
+ */
 public class Floor {
 
     //The arena that this floor belongs too

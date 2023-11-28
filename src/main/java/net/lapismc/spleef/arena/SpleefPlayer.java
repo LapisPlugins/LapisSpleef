@@ -39,6 +39,12 @@ public class SpleefPlayer {
     private YamlConfiguration playerDataYaml;
     private ItemStack[] inventoryContents;
 
+    /**
+     * Initialize a SpleefPlayer object
+     *
+     * @param plugin The LapisSpleef main class
+     * @param uuid   The UUID of the player this class should represent
+     */
     public SpleefPlayer(LapisSpleef plugin, UUID uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
