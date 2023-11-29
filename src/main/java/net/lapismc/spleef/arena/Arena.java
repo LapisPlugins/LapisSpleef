@@ -18,9 +18,14 @@ package net.lapismc.spleef.arena;
 
 import net.lapismc.lapiscore.utils.LapisItemBuilder;
 import net.lapismc.spleef.LapisSpleef;
+import net.lapismc.spleef.util.CountdownManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +36,11 @@ import java.util.Queue;
  * This class is used to represent the arena that the spleef game will take place in
  * It handles most of the gameplay logic
  */
-public class Arena {
+public class Arena implements Listener {
 
     private final LapisSpleef plugin;
     //List of floors in this arena
-    private final List<Floor> floors = new ArrayList<>();
+    private List<Floor> floors = new ArrayList<>();
     //The current state of the game in the arena
     GameState gameState;
     //List of players in arena
@@ -48,6 +53,8 @@ public class Arena {
     private Location spectateLocation;
     //Height of the bottom of the arena where players should be eliminated
     private int eliminationHeight;
+    //Countdown manager for displaying boss bars to players
+    private final CountdownManager countdownManager;
 
     /**
      * Initialize an arena
@@ -58,6 +65,8 @@ public class Arena {
     public Arena(LapisSpleef plugin, String name) {
         this.plugin = plugin;
         this.name = name;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
+        countdownManager = new CountdownManager(plugin);
     }
 
     /**
@@ -69,18 +78,27 @@ public class Arena {
      */
     public void startGame() {
         //TODO: Implement below comments
-        gameState = GameState.playing;
+        gameState = GameState.starting;
+        //Sort the floors before we try to grab the highest
+        sortFloors();
+        //Get the spawn points from the highest floor
         Queue<Location> spawnPoints = new PriorityQueue<>(floors.get(0).generateSpawnPoints(players.size()));
         for (SpleefPlayer player : players) {
             //Teleport into game arena
             //Evenly distribute the players by spreading them along the list of blocks evenly
             player.teleport(spawnPoints.poll());
             //Give players the tools they need
-            player.getPlayer().getInventory().addItem(new LapisItemBuilder(Material.IRON_SHOVEL)
+            player.getBukkitPlayer().getInventory().addItem(new LapisItemBuilder(Material.IRON_SHOVEL)
                     .setName(ChatColor.AQUA + "The Shovel of Destiny")
                     .addLore("This shovel will bring you:", "Fun", "Pain", "Falling").build());
         }
         //Start a 3-second count-down so that players can see where they are and get ready before block breaks are enabled
+        countdownManager.addPlayers(players);
+        countdownManager.startCountdown(1000 * 3);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            gameState = GameState.playing;
+            sendTitle(plugin.config.getMessage("Game.Begin"), "");
+        }, 20 * 3);
     }
 
     /**
@@ -115,7 +133,7 @@ public class Arena {
      */
     public void sendToLobby(SpleefPlayer player) {
         if (!players.contains(player)) {
-            plugin.getLogger().warning("Player " + player.getPlayer().getName() + " was sent to the lobby of arena "
+            plugin.getLogger().warning("Player " + player.getBukkitPlayer().getName() + " was sent to the lobby of arena "
                     + name + ", but they aren't in that arena. This error should be reported.");
             return;
         }
@@ -136,7 +154,7 @@ public class Arena {
     public void sendToSpectate(SpleefPlayer player) {
         //Make sure this player is a member of this arena
         if (!players.contains(player)) {
-            plugin.getLogger().warning("Player " + player.getPlayer().getName() + " was sent to spectate the arena "
+            plugin.getLogger().warning("Player " + player.getBukkitPlayer().getName() + " was sent to spectate the arena "
                     + name + ", but they aren't in that arena. This error should be reported.");
             return;
         }
@@ -144,6 +162,68 @@ public class Arena {
         player.teleport(spectateLocation);
         //Tell the player that the game is in progress, so they are now spectating
         player.sendConfigMessage("Spectate.GameInProgress");
+    }
+
+    /**
+     * Used to detect block breakage in this arena
+     *
+     * @param e The block break event being fired
+     */
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent e) {
+        //Check if it's an arena player, if it isn't we return and ignore the event
+        if (!players.contains(plugin.getSpleefPlayer(e.getPlayer().getUniqueId())))
+            return;
+        //Check if it's a floor block
+        boolean isFloor = false;
+        Floor floor = null;
+        for (Floor f : floors) {
+            if (f.isBlockOnFloor(e.getBlock())) {
+                isFloor = true;
+                floor = f;
+            }
+        }
+        //If it isn't a floor block, we cancel the event since players shouldn't be able to damage the arena
+        if (!isFloor) {
+            e.setCancelled(true);
+            return;
+        }
+        //Only allow block breaking if the game is in the playing state, otherwise cancel the event
+        if (gameState.equals(GameState.playing)) {
+            //Break the floor block
+            floor.breakBlock(e.getBlock());
+            //Check if it's a tool being used
+
+            //Apply tool abilities
+
+        } else {
+            e.setCancelled(true);
+        }
+    }
+
+    /**
+     * Send a title to all Players in the arena
+     *
+     * @param title    The title to be shown
+     * @param subtitle The subtitle to be shown
+     */
+    public void sendTitle(String title, String subtitle) {
+        sendTitle(title, subtitle, 10, 20, 10);
+    }
+
+    /**
+     * Send a title to all Players in the arena
+     *
+     * @param title    The title to be shown
+     * @param subtitle The subtitle to be shown
+     * @param fadeIn   Ticks to fade in for
+     * @param stay     Ticks to stay for
+     * @param fadeOut  Ticks to fade out for
+     */
+    public void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        for (SpleefPlayer player : players) {
+            player.getBukkitPlayer().sendTitle(title, subtitle, fadeIn, stay, fadeOut);
+        }
     }
 
     /**
@@ -197,7 +277,20 @@ public class Arena {
      * Sorts the floors from highest Y value at index 0 in the floors list to the lowest value in the last index
      */
     public void sortFloors() {
-        //TODO: Sort the floors in y level order, with the 0th entry being the highest
+        List<Floor> sortedList = new ArrayList<>();
+        int size = floors.size();
+        while (sortedList.size() != size) {
+            Floor highest = null;
+            for (Floor f : floors) {
+                int y = f.getYLevel();
+                if (highest == null || highest.getYLevel() < y) {
+                    highest = f;
+                }
+            }
+            sortedList.add(highest);
+            floors.remove(highest);
+        }
+        floors = sortedList;
     }
 
     /**

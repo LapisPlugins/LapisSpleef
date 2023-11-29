@@ -61,6 +61,7 @@ shadowJar {
 javadoc {
     source = sourceSets.main.allJava
     include("net/lapismc/spleef/arena/*.java")
+    include("net/lapismc/spleef/util/*.java")
 }
 
 tasks.register('javadocJar', Jar) {

@@ -57,7 +57,7 @@ public class SpleefPlayer {
      *
      * @return the Bukkit Player object for this player
      */
-    public Player getPlayer() {
+    public Player getBukkitPlayer() {
         return Bukkit.getPlayer(uuid);
     }
 
@@ -67,7 +67,7 @@ public class SpleefPlayer {
      * @param location where you want to send the player
      */
     public void teleport(Location location) {
-        getPlayer().teleport(location);
+        getBukkitPlayer().teleport(location);
     }
 
     /**
@@ -86,7 +86,7 @@ public class SpleefPlayer {
      * @param message The message you wish to send
      */
     public void sendMessage(String message) {
-        getPlayer().sendMessage(message);
+        getBukkitPlayer().sendMessage(message);
     }
 
     /**
@@ -94,7 +94,7 @@ public class SpleefPlayer {
      * This will be stored in memory and the players data file so that it can be restored even after a server crash
      */
     public void storeInventory() {
-        inventoryContents = getPlayer().getInventory().getContents();
+        inventoryContents = getBukkitPlayer().getInventory().getContents();
         //save inventory to file for emergency restore should the server crash
         new LapisItemStackStorage().saveItems(playerDataYaml, "StoredInventory", inventoryContents);
         savePlayerData();
@@ -107,7 +107,7 @@ public class SpleefPlayer {
      */
     public void restoreInventory() {
         //Set the players inventory contents to the stored contents
-        getPlayer().getInventory().setContents(inventoryContents);
+        getBukkitPlayer().getInventory().setContents(inventoryContents);
         //Delete the inventory from our file so that it cant be used to dupe items
         playerDataYaml.set("StoredInventory", null);
         savePlayerData();
@@ -132,14 +132,14 @@ public class SpleefPlayer {
             try {
                 playerDataFile.createNewFile();
                 YamlConfiguration yaml = YamlConfiguration.loadConfiguration(playerDataFile);
-                yaml.set("Username", getPlayer().getName());
+                yaml.set("Username", getBukkitPlayer().getName());
                 yaml.set("Stats.GamesPlayed", 0);
                 yaml.set("Stats.Wins", 0);
                 yaml.set("Stats.Losses", 0);
                 yaml.set("Stats.Abandoned", 0);
                 yaml.save(playerDataFile);
             } catch (IOException e) {
-                plugin.getLogger().severe("Failed to create a player data file for " + getPlayer().getName());
+                plugin.getLogger().severe("Failed to create a player data file for " + getBukkitPlayer().getName());
                 plugin.getLogger().severe(e.toString());
                 plugin.getLogger().severe(e.fillInStackTrace().toString());
             }
@@ -154,7 +154,7 @@ public class SpleefPlayer {
         try {
             playerDataYaml.save(playerDataFile);
         } catch (IOException e) {
-            plugin.getLogger().severe("Failed to save player data for " + getPlayer().getName());
+            plugin.getLogger().severe("Failed to save player data for " + getBukkitPlayer().getName());
             plugin.getLogger().severe(e.toString());
             plugin.getLogger().severe(e.fillInStackTrace().toString());
         }

@@ -108,4 +108,20 @@ public class Floor {
         return spawnPoints;
     }
 
+    /**
+     * Get the Y level of this floor, returns the highest Y level on the floor
+     *
+     * @return the highest Y level of a block on the floor
+     */
+    public int getYLevel() {
+        int highestY = 0;
+        for (Block b : blocks) {
+            int y = b.getY();
+            if (highestY < y) {
+                highestY = y;
+            }
+        }
+        return highestY;
+    }
+
 }

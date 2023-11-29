@@ -6,3 +6,7 @@ Lobby:
 Spectate:
   Eliminated: "&pYou have been eliminated, you are now spectating!"
   GameInProgress: "&pYou have joined while a game is in progress, you are spectating and will join at the end of the current game"
+
+Game:
+  Countdown: "&pGame beginning &s"
+  Start: "Begin"

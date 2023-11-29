@@ -30,6 +30,10 @@ public enum GameState {
      */
     waiting,
     /**
+     * Starting arenas are non-joinable but also cannot break blocks, this is a temporary state that will transition to playing
+     */
+    starting,
+    /**
      * Playing arenas are currently in game, and as such new players can only spectate until the next game
      */
     playing,
